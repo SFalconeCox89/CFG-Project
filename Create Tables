@@ -3,12 +3,20 @@ USE exobar;
 
 -- Create tables for database
 
-CREATE TABLE suppliers (
-supplier_id INT PRIMARY KEY,
-supplier_name VARCHAR(30),
-supplier_telephone_number INT,
-supplier_postcode VARCHAR(10),
-supplier_email VARCHAR(80)
+CREATE TABLE drink_suppliers (
+d_supplier_id INT PRIMARY KEY,
+d_supplier_name VARCHAR(30),
+d_supplier_telephone_number INT,
+d_supplier_postcode VARCHAR(10),
+d_supplier_email VARCHAR(80)
+);
+
+CREATE TABLE snack_suppliers (
+s_supplier_id INT PRIMARY KEY,
+s_supplier_name VARCHAR(30),
+s_supplier_telephone_number INT,
+s_supplier_postcode VARCHAR(10),
+s_supplier_email VARCHAR(80)
 );
 
 CREATE TABLE stock(
@@ -17,12 +25,16 @@ stock_name VARCHAR(90),
 stock_type VARCHAR(20),
 quantity INT,
 supplier_id INT,
-FOREIGN KEY (supplier_id) REFERENCES suppliers(supplier_id)
+FOREIGN KEY (supplier_id) REFERENCES drink_suppliers(d_supplier_id)
 );
+
+ALTER TABLE stock
+ADD FOREIGN KEY (supplier_id) REFERENCES snack_suppliers(s_supplier_id);
 
 CREATE TABLE customers(
 customer_id INT PRIMARY KEY,
-customer_name VARCHAR(30),
+customer_first_name VARCHAR(30),
+customer_last_name VARCHAR(30),
 customer_telephone_number INT,
 customer_email VARCHAR(80)
 );
@@ -31,10 +43,16 @@ CREATE TABLE events(
 event_id INT PRIMARY KEY,
 event_date DATE,
 event_name VARCHAR(90),
+event_type VARCHAR(50),
 event_postcode VARCHAR(10),
+number_of_guests INT,
 customer_id INT,
+bar_id INT,
 FOREIGN KEY (customer_id) REFERENCES customers(customer_id)
 );
+
+ALTER TABLE events
+ADD FOREIGN KEY (bar_id) REFERENCES bars(bar_id);
 
 CREATE TABLE bars(
 bar_id INT PRIMARY KEY,
@@ -42,9 +60,17 @@ bar_name VARCHAR(50),
 bar_type VARCHAR(30)
 );
 
-ALTER TABLE events
-ADD COLUMN bar_id INT
-;
+CREATE TABLE event_finance(
+event_id INT PRIMARY KEY,
+deposit FLOAT,
+stock_cost FLOAT,
+takings FLOAT,
+FOREIGN KEY (event_id) REFERENCES events(event_id)
+);
 
-ALTER TABLE events
-ADD FOREIGN KEY (bar_id) REFERENCES bars(bar_id);
+CREATE TABLE overheads(
+overhead_id INT PRIMARY KEY,
+overhead_name VARCHAR(90),
+overhead_amount FLOAT,
+overhead_frequency VARCHAR(90)
+);
