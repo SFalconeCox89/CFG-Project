@@ -51,14 +51,14 @@ bar_id INT,
 FOREIGN KEY (customer_id) REFERENCES customers(customer_id)
 );
 
-ALTER TABLE events
-ADD FOREIGN KEY (bar_id) REFERENCES bars(bar_id);
-
 CREATE TABLE bars(
 bar_id INT PRIMARY KEY,
 bar_name VARCHAR(50),
 bar_type VARCHAR(30)
 );
+
+ALTER TABLE events
+ADD FOREIGN KEY (bar_id) REFERENCES bars(bar_id);
 
 CREATE TABLE event_finance(
 event_id INT PRIMARY KEY,
@@ -68,9 +68,45 @@ takings FLOAT,
 FOREIGN KEY (event_id) REFERENCES events(event_id)
 );
 
-CREATE TABLE overheads(
-overhead_id INT PRIMARY KEY,
-overhead_name VARCHAR(90),
-overhead_amount FLOAT,
-overhead_frequency VARCHAR(90)
+CREATE TABLE event_booking(
+event_id INT PRIMARY KEY,
+drink1 INT,
+drink2 INT,
+drink3 INT,
+drink4 INT,
+drink5 INT,
+drink6 INT,
+snack1 INT,
+snack2 INT,
+snack3 INT
 );
+
+ALTER TABLE event_booking
+ADD FOREIGN KEY (drink1) REFERENCES stock(stock_id);
+
+ALTER TABLE event_booking
+ADD FOREIGN KEY (drink2) REFERENCES stock(stock_id);
+
+ALTER TABLE event_booking
+ADD FOREIGN KEY (drink3) REFERENCES stock(stock_id);
+
+ALTER TABLE event_booking
+ADD FOREIGN KEY (drink4) REFERENCES stock(stock_id);
+
+ALTER TABLE event_booking
+ADD FOREIGN KEY (drink5) REFERENCES stock(stock_id);
+
+ALTER TABLE event_booking
+ADD FOREIGN KEY (drink6) REFERENCES stock(stock_id);
+
+ALTER TABLE event_booking
+ADD FOREIGN KEY (snack1) REFERENCES stock(stock_id);
+
+ALTER TABLE event_booking
+ADD FOREIGN KEY (snack2) REFERENCES stock(stock_id);
+
+ALTER TABLE event_booking
+ADD FOREIGN KEY (snack3) REFERENCES stock(stock_id);
+
+ALTER TABLE event_booking
+ADD FOREIGN KEY (event_id) REFERENCES events(event_id);
