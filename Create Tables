@@ -3,12 +3,22 @@ USE exobar;
 
 -- Create tables for database
 
+CREATE TABLE stock(
+stock_id INT PRIMARY KEY,
+stock_name VARCHAR(90),
+stock_type VARCHAR(20),
+quantity INT,
+supplier_id INT
+);
+
 CREATE TABLE drink_suppliers (
 d_supplier_id INT PRIMARY KEY,
 d_supplier_name VARCHAR(30),
 d_supplier_telephone_number INT,
 d_supplier_postcode VARCHAR(10),
-d_supplier_email VARCHAR(80)
+d_supplier_email VARCHAR(80),
+stock_id INT,
+FOREIGN KEY (stock_id) REFERENCES stock(stock_id)
 );
 
 CREATE TABLE snack_suppliers (
@@ -16,20 +26,10 @@ s_supplier_id INT PRIMARY KEY,
 s_supplier_name VARCHAR(30),
 s_supplier_telephone_number INT,
 s_supplier_postcode VARCHAR(10),
-s_supplier_email VARCHAR(80)
+s_supplier_email VARCHAR(80),
+stock_id INT,
+FOREIGN KEY (stock_id) REFERENCES stock(stock_id)
 );
-
-CREATE TABLE stock(
-stock_id INT PRIMARY KEY,
-stock_name VARCHAR(90),
-stock_type VARCHAR(20),
-quantity INT,
-supplier_id INT,
-FOREIGN KEY (supplier_id) REFERENCES drink_suppliers(d_supplier_id)
-);
-
-ALTER TABLE stock
-ADD FOREIGN KEY (supplier_id) REFERENCES snack_suppliers(s_supplier_id);
 
 CREATE TABLE customers(
 customer_id INT PRIMARY KEY,
@@ -110,3 +110,5 @@ ADD FOREIGN KEY (snack3) REFERENCES stock(stock_id);
 
 ALTER TABLE event_booking
 ADD FOREIGN KEY (event_id) REFERENCES events(event_id);
+
+DROP DATABASE exobar
