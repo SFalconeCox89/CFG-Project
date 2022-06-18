@@ -103,9 +103,6 @@ bars.bar_name='Drunken Huntsman';
 -- SCENARIO 
 -- Each day a table is created showing the events that month
 
-ALTER TABLE events_this_month
-ADD COLUMN event_date DATE
-
 CREATE EVENT IF NOT EXISTS events_this_month
 ON SCHEDULE EVERY 1 DAY
 STARTS CURRENT_TIMESTAMP
