@@ -96,3 +96,21 @@ INNER JOIN bars ON events.bar_id = bars.bar_id
 GROUP BY event_date
 HAVING
 bars.bar_name='Drunken Huntsman';
+
+-- TASK - EVENT
+-- In your database, create an event and demonstrate how it runs.
+
+-- SCENARIO 
+-- Each day a table is created showing the events that month
+
+ALTER TABLE events_this_month
+ADD COLUMN event_date DATE
+
+CREATE EVENT IF NOT EXISTS events_this_month
+ON SCHEDULE EVERY 1 DAY
+STARTS CURRENT_TIMESTAMP
+ENDS CURRENT_TIMESTAMP + INTERVAL 1 DAY
+DO
+  INSERT INTO events_this_month(event_id, event_date)
+  SELECT event_id, event_date
+  FROM events
