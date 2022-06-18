@@ -83,3 +83,16 @@ END//
 DELIMITER ;
 
 CALL need_stock('2022-06-16');
+
+-- TASK - QUERIES WITH GROUP BY
+-- Prepare an example query with group by and having to demonstrate how to extract data from your DB for analysis.
+
+-- SCENARIO 
+-- Show all the events a particular bar has.
+
+SELECT events.event_id, events.event_date, bars.bar_name
+FROM events
+INNER JOIN bars ON events.bar_id = bars.bar_id
+GROUP BY event_date
+HAVING
+bars.bar_name='Drunken Huntsman';
