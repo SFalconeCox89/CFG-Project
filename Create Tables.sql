@@ -68,47 +68,21 @@ takings FLOAT,
 FOREIGN KEY (event_id) REFERENCES events(event_id)
 );
 
-CREATE TABLE event_booking(
-event_id INT PRIMARY KEY,
-drink1 INT,
-drink2 INT,
-drink3 INT,
-drink4 INT,
-drink5 INT,
-drink6 INT,
-snack1 INT,
-snack2 INT,
-snack3 INT
+CREATE TABLE bar_maintenance(
+bm_id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+bar_id INT,
+clean DATE,
+insurance_due DATE,
+MOT_due DATE,
+FOREIGN KEY (bar_id) REFERENCES bars(bar_id)
 );
 
-ALTER TABLE event_booking
-ADD FOREIGN KEY (drink1) REFERENCES stock(stock_id);
-
-ALTER TABLE event_booking
-ADD FOREIGN KEY (drink2) REFERENCES stock(stock_id);
-
-ALTER TABLE event_booking
-ADD FOREIGN KEY (drink3) REFERENCES stock(stock_id);
-
-ALTER TABLE event_booking
-ADD FOREIGN KEY (drink4) REFERENCES stock(stock_id);
-
-ALTER TABLE event_booking
-ADD FOREIGN KEY (drink5) REFERENCES stock(stock_id);
-
-ALTER TABLE event_booking
-ADD FOREIGN KEY (drink6) REFERENCES stock(stock_id);
-
-ALTER TABLE event_booking
-ADD FOREIGN KEY (snack1) REFERENCES stock(stock_id);
-
-ALTER TABLE event_booking
-ADD FOREIGN KEY (snack2) REFERENCES stock(stock_id);
-
-ALTER TABLE event_booking
-ADD FOREIGN KEY (snack3) REFERENCES stock(stock_id);
-
-ALTER TABLE event_booking
-ADD FOREIGN KEY (event_id) REFERENCES events(event_id);
+CREATE TABLE events_this_month(
+  etm_id INT PRIMARY KEY AUTO INCREMENT,
+  event_id INT,
+  created DATETIME (NOW()),
+  event_date DATE,
+  FOREIGN KEY (event_id) REFERENCES events(event_id)
+  );
 
 DROP DATABASE exobar
