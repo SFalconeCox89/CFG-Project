@@ -1,0 +1,10 @@
+delimiter $$
+CREATE TRIGGER  check_deposit  BEFORE INSERT ON event_finance
+FOR EACH ROW
+BEGIN
+IF NEW.deposit < 100 THEN
+SIGNAL SQLSTATE '45000'
+SET MESSAGE_TEXT = 'ERROR: DEPOSIT MUST BE AT LEAST 100';
+END IF;
+END; $$
+delimiter; 
